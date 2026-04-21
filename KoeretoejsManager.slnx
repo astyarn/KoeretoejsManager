@@ -1,3 +1,5 @@
 <Solution>
+  <Project Path="KoeretoejsManager.Api/KoeretoejsManager.Api.csproj" Id="f1ccdfa7-bcc2-4c1a-81d2-224e9c22f567" />
+  <Project Path="KoeretoejsManager.Shared/KoeretoejsManager.Shared.csproj" Id="4c2aac8b-5351-46e2-b481-d434568e8b0a" />
   <Project Path="KoeretoejsManager/KoeretoejsManager.csproj" />
 </Solution>
