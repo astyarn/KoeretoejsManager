@@ -16,6 +16,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\KoeretoejsManager.Api\KoeretoejsManager.Api.csproj" />
+    <ProjectReference Include="..\KoeretoejsManager.Shared\KoeretoejsManager.Shared.csproj" />
+    <ProjectReference Include="..\KoeretoejsManager\KoeretoejsManager.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
 
