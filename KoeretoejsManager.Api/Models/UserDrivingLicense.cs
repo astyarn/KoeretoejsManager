@@ -1,6 +1,6 @@
 ﻿namespace KoeretoejsManager.Api.Models
 {
-    public class UserDrivingLicense
+    public class UserDrivingLicense //Role table for User and drivingLicense many to many relation
     {
         public int UserId { get; set; }
         public User User { get; set; }
