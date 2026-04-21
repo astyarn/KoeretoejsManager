@@ -1,4 +1,7 @@
 
+using KoeretoejsManager.Api.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace KoeretoejsManager.Api
 {
     public class Program
@@ -8,6 +11,9 @@ namespace KoeretoejsManager.Api
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+
+            builder.Services.AddDbContext<KoeretoejsManagerDbContext>(options =>
+                options.UseSqlite("Data Source=koeretoejsmanager.db"));
 
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
