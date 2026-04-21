@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace KoeretoejsManager.Shared.Enums
+{
+    public enum RoleType
+    {
+        Employee = 0,
+        Manager = 1,
+        Admin = 2
+    }
+}
