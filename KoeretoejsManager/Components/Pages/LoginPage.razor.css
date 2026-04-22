@@ -1,0 +1,21 @@
+﻿.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /*centers horizontally*/
+    justify-content: center;
+    text-align: center; /*centers text*/
+    gap: 10px;
+}
+
+/*Inputs stay centered as elements*/
+.login-input {
+    width: 250px;
+}
+
+.login-input {
+    text-align: left;
+}
+
+.login-error-text {
+    color: red;
+}

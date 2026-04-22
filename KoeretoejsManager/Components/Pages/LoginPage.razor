@@ -1,0 +1,43 @@
+﻿@page "/login"
+@rendermode InteractiveServer
+
+@attribute [AllowAnonymous]
+
+@inject NavigationManager NavigationManager
+@inject IHttpClientFactory HttpClientFactory
+@inject AuthenticationStateProvider AuthStateProvider
+
+<div class="login-container">
+    <h2>Køretøjs Manager</h2>
+    <h3>Login Page</h3>
+
+    <input class="login-input" @bind="username" placeholder="Username" />
+    <input class="login-input" @bind="password" placeholder="Password" type="password" />
+
+    <button @onclick="HandleLogin">Login</button>
+
+    <p class="login-error-text">@errorMessage</p>
+</div>
+
+@code {
+    private string username { get; set; } = string.Empty;
+    private string password { get; set; } = string.Empty;
+    private string errorMessage { get; set; } = string.Empty;
+
+    private async Task HandleLogin()
+    {
+        // TODO: Implement actual authentication logic here
+        if (username == "admin")
+        {
+            // Redirect to home page
+            errorMessage = string.Empty;
+
+            NavigationManager.NavigateTo("/");
+        }
+        else
+        {
+            errorMessage = "Invalid username or password.";
+        }
+    }
+
+}
