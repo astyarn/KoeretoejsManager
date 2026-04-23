@@ -1,4 +1,6 @@
 using KoeretoejsManager.Components;
+using KoeretoejsManager.Interfaces;
+using KoeretoejsManager.Services;
 
 namespace KoeretoejsManager
 {
@@ -9,6 +11,9 @@ namespace KoeretoejsManager
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+
+            builder.Services.AddScoped<IUserAuthApiService, UserAuthApiService>();
+
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
 
