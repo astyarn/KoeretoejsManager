@@ -48,6 +48,10 @@ namespace KoeretoejsManager.Api.Data
                 .HasOne(x => x.DrivingLicense)
                 .WithMany(l => l.UserDrivingLicense)
                 .HasForeignKey(x => x.DrivingLicenseId);
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.UserRole)
+                .HasConversion<string>();
         }
     }
 }
