@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using KoeretoejsManager.Shared.Enums;
+using Microsoft.AspNetCore.Identity;
 
 namespace KoeretoejsManager.Api.Models
 {
@@ -13,7 +14,8 @@ namespace KoeretoejsManager.Api.Models
 
         public List<UserDrivingLicense> UserDrivingLicense { get; set; }
 
-        //public RoleManager Role
+        public UserRoleType UserRole { get; set; }
 
     }
 }
+ 
