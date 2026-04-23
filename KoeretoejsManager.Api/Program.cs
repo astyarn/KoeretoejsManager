@@ -1,5 +1,6 @@
 using KoeretoejsManager.Api.CustomMiddleWares;
 using KoeretoejsManager.Api.Data;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -36,7 +37,10 @@ namespace KoeretoejsManager.Api
             builder.Services.AddDbContext<KoeretoejsManagerDbContext>(options =>
                 options.UseSqlite("Data Source=koeretoejsmanager.db"));
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers(options =>
+            {
+                options.Filters.Add(new RequireHttpsAttribute());       //Force https for all controllers
+            }); 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
