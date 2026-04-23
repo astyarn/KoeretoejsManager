@@ -1,6 +1,8 @@
-
+using KoeretoejsManager.Api.CustomMiddleWares;
 using KoeretoejsManager.Api.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace KoeretoejsManager.Api
 {
@@ -12,6 +14,25 @@ namespace KoeretoejsManager.Api
 
             // Add services to the container.
 
+            builder.Services.AddAuthentication("Bearer")
+                .AddJwtBearer("Bearer", options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+
+                        ValidIssuer = "your-api",
+                        ValidAudience = "your-app",
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes("SUPER_SECRET_KEY_123"))
+                    };
+                });
+
+            builder.Services.AddAuthorization();
+
             builder.Services.AddDbContext<KoeretoejsManagerDbContext>(options =>
                 options.UseSqlite("Data Source=koeretoejsmanager.db"));
 
@@ -20,6 +41,8 @@ namespace KoeretoejsManager.Api
             builder.Services.AddOpenApi();
 
             var app = builder.Build();
+
+            app.UseMiddleware<ApiKeyMiddleware>(); //<-- to be placed before Authorization middleware
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
