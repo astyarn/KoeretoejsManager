@@ -3,6 +3,7 @@ using System;
 using KoeretoejsManager.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KoeretoejsManager.Api.Migrations
 {
     [DbContext(typeof(KoeretoejsManagerDbContext))]
-    partial class KoeretoejsManagerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260424082202_AddedVehicleAndBooking")]
+    partial class AddedVehicleAndBooking
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.7");
