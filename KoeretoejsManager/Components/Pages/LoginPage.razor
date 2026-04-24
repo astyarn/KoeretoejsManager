@@ -1,5 +1,7 @@
 ﻿@page "/login"
+@using KoeretoejsManager.Interfaces
 
+@inject IUserAuthApiService UserAuthApiService
 @inject NavigationManager NavigationManager
 
 <div class="login-container">
@@ -26,6 +28,16 @@
         {
             // Redirect to home page
             errorMessage = string.Empty;
+
+            var token = await UserAuthApiService.LoginAsync(username, password);
+
+            if (token == null)
+            {
+                errorMessage = "Invalid login";
+                return;
+            }
+
+            //Save token to local storage or a service for later use
 
             NavigationManager.NavigateTo("/");
         }

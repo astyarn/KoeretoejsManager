@@ -7,14 +7,16 @@ namespace KoeretoejsManager.Services
     {
         private readonly HttpClient _http;
         private readonly IConfiguration _config;
+        private readonly IUserTokenStore _userTokenStore;
 
-        public UserAuthApiService(HttpClient http, IConfiguration config)
+        public UserAuthApiService(HttpClient http, IConfiguration config, IUserTokenStore userTokenStore)
         {
             _http = http;
             _config = config;
+            _userTokenStore = userTokenStore;
         }
 
-        public async Task<string?> LoginAsync(string username, string password)
+        public async Task<bool?> LoginAsync(string username, string password)
         {
             var request = new HttpRequestMessage(HttpMethod.Post,
             $"{_config["ApiBaseUrl"]}/api/auth/login");
@@ -34,7 +36,14 @@ namespace KoeretoejsManager.Services
 
             var result = await response.Content.ReadFromJsonAsync<LoginRequestResponse>();
 
-            return result?.AccessToken;
+            if (result == null)
+                return false;
+
+            var expiresAt = DateTime.UtcNow.AddSeconds(result.ExpiresIn);
+
+            await _userTokenStore.SetTokenAsync(result.AccessToken, expiresAt);
+
+            return true;
         }
     }
 }

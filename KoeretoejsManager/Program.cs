@@ -13,6 +13,7 @@ namespace KoeretoejsManager
             // Add services to the container.
 
             builder.Services.AddScoped<IUserAuthApiService, UserAuthApiService>();
+            builder.Services.AddScoped<IUserTokenStore, UserTokenStore>();
 
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();

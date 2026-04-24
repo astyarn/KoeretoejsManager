@@ -2,6 +2,6 @@
 {
     public interface IUserAuthApiService
     {
-        Task<string?> LoginAsync(string username, string password);
+        Task<bool?> LoginAsync(string username, string password);
     }
 }
