@@ -10,6 +10,8 @@ namespace KoeretoejsManager.Api.Models
         public VehicleStatusType Status { get; set; }
         public int NumberOfSeats { get; set; }
 
+        public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+
         //property for location
         //property for cargocapacity
     }

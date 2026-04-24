@@ -16,6 +16,9 @@ namespace KoeretoejsManager.Api.Models
 
         public UserRoleType UserRole { get; set; }
 
+        public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+
+
     }
 }
  

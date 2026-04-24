@@ -11,6 +11,8 @@ namespace KoeretoejsManager.Api.Data
             
         }
 
+        public DbSet<Vehicle> Vehicles { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<DrivingLicense> DrivingLicenses { get; set; }
         public DbSet<UserDrivingLicense> UserDrivingLicenses { get; set; }
@@ -19,6 +21,30 @@ namespace KoeretoejsManager.Api.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            /*connecting vehicles with bookings*/
+            modelBuilder.Entity<Booking>()
+                .HasOne(b => b.Vehicle)
+                .WithMany(v => v.Bookings)
+                .HasForeignKey(b => b.VehicleId)
+                .OnDelete(DeleteBehavior.Restrict);     //Prevents cascade delete of bookings when a vehicle is deleted
+
+            modelBuilder.Entity<Booking>()
+                .HasOne(b => b.User)
+                .WithMany(u => u.Bookings)
+                .HasForeignKey(b => b.UserId)
+                .OnDelete(DeleteBehavior.Restrict);     //Prevents cascade delete of bookings when a user is deleted
+
+
+            /*Enum to string for vehicle class*/
+            modelBuilder.Entity<Vehicle>()
+                .Property(v => v.RequiredLicense)
+                .HasConversion<string>();
+
+            modelBuilder.Entity<Vehicle>()
+                .Property(v => v.Status)
+                .HasConversion<string>();
+
 
             /*Creation of DrivingLicense entities from DrivingLicenseType enum */
             modelBuilder.Entity<DrivingLicense>()
