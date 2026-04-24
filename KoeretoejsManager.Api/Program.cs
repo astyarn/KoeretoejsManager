@@ -1,5 +1,7 @@
 using KoeretoejsManager.Api.CustomMiddleWares;
 using KoeretoejsManager.Api.Data;
+using KoeretoejsManager.Api.Interfaces;
+using KoeretoejsManager.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -14,6 +16,9 @@ namespace KoeretoejsManager.Api
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+
+            builder.Services.AddScoped<IUserAuthService, UserAuthService>();
+            builder.Services.AddScoped<IJwtService, JwtService>();
 
             builder.Services.AddAuthentication("Bearer")
                 .AddJwtBearer("Bearer", options =>
