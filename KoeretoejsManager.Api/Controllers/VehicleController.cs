@@ -21,7 +21,7 @@ namespace KoeretoejsManager.Api.Controllers
         [AllowAnonymous]
         public IActionResult<List> GetVehiclesByDriversLicense([FromBody] )
         {
- 
+            
         }
     }
 }

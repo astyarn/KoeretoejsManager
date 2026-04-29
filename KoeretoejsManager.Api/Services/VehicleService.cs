@@ -1,5 +1,6 @@
 ﻿using KoeretoejsManager.Api.Data;
 using KoeretoejsManager.Api.Interfaces;
+using KoeretoejsManager.Api.Mapper;
 using KoeretoejsManager.Api.Models;
 using KoeretoejsManager.Shared.DTOs;
 using KoeretoejsManager.Shared.Enums;
@@ -24,14 +25,7 @@ namespace KoeretoejsManager.Api.Services
         public List<VehicleDTO> GetAllVehicles()
         {
             return _db.Vehicles
-                .Select(v => new VehicleDTO
-                {
-                    VehicleId = v.VehicleId,
-                    LicensePlate = v.LicensePlate,
-                    RequiredLicense = v.RequiredLicense,
-                    Status = v.Status,
-                    NumberOfSeats = v.NumberOfSeats
-                })
+                .Select(v => VehicleMapper.ToDto(v))
                 .ToList();
         }
 
@@ -39,15 +33,7 @@ namespace KoeretoejsManager.Api.Services
         {
             return _db.Vehicles
                 .Where(v => drivingLicenseTypes.Contains(v.RequiredLicense))
-                .Select(v => new VehicleDTO
-                {
-                    VehicleId = v.VehicleId,
-                    LicensePlate = v.LicensePlate,
-                    RequiredLicense = v.RequiredLicense,
-                    Status = v.Status,
-                    NumberOfSeats = v.NumberOfSeats
-                })
-                .ToList();
+                .Select(v => VehicleMapper.ToDto(v)) .ToList();
         }
     }
 }
