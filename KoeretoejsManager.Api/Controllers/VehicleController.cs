@@ -19,12 +19,25 @@ namespace KoeretoejsManager.Api.Controllers
             _vehicleService = vehicleService;
         }
 
-        [HttpPost("driverlicense")]
+        [HttpPost("search-by-drivers-license")]
         [AllowAnonymous]
-        public ActionResult<List<VehicleDTO>> GetVehiclesByDriversLicense([FromBody] List<DrivingLicenseType> request)
+        public ActionResult<List<VehicleDTO>> SearchVehiclesByDriversLicense([FromBody] VehicleSearchDriversLicenseRequest request)
         {
-            var vehicles = _vehicleService.GetAllVehiclesByDriversLicense(request);
+            if (request == null || request.LicenseTypes == null || !request.LicenseTypes.Any())
+            {
+                return BadRequest("License types are required.");
+            }
 
+            var vehicles = _vehicleService.GetAllVehiclesByDriversLicense(request.LicenseTypes);
+
+            return Ok(vehicles);
+        }
+
+        [HttpGet("all-vehicles")]
+        [AllowAnonymous]
+        public ActionResult<List<VehicleDTO>> GetAllVehicles()
+        {
+            var vehicles = _vehicleService.GetAllVehicles();
             return Ok(vehicles);
         }
     }

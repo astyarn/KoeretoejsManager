@@ -19,6 +19,7 @@ namespace KoeretoejsManager.Api
             // Add services to the container.
 
             builder.Services.AddScoped<IUserAuthService, UserAuthService>();
+            builder.Services.AddScoped<IVehicleService, VehicleService>();
             builder.Services.AddScoped<IJwtService, JwtService>();
 
             builder.Services.AddAuthentication("Bearer")
