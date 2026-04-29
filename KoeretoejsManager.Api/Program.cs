@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace KoeretoejsManager.Api
 {
@@ -45,7 +46,13 @@ namespace KoeretoejsManager.Api
             builder.Services.AddControllers(options =>
             {
                 options.Filters.Add(new RequireHttpsAttribute());       //Force https for all controllers
-            }); 
+
+            })
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());    //Adds option to serialize enums as strings in json
+            });
+
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 

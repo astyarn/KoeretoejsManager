@@ -1,5 +1,7 @@
 ﻿using KoeretoejsManager.Api.Interfaces;
 using KoeretoejsManager.Api.Models.HelperModels;
+using KoeretoejsManager.Shared.DTOs;
+using KoeretoejsManager.Shared.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,9 +21,11 @@ namespace KoeretoejsManager.Api.Controllers
 
         [HttpPost("driverlicense")]
         [AllowAnonymous]
-        public IActionResult<List> GetVehiclesByDriversLicense([FromBody] )
+        public ActionResult<List<VehicleDTO>> GetVehiclesByDriversLicense([FromBody] List<DrivingLicenseType> request)
         {
-            
+            var vehicles = _vehicleService.GetAllVehiclesByDriversLicense(request);
+
+            return Ok(vehicles);
         }
     }
 }
