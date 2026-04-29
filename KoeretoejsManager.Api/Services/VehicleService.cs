@@ -33,7 +33,8 @@ namespace KoeretoejsManager.Api.Services
         {
             return _db.Vehicles
                 .Where(v => drivingLicenseTypes.Contains(v.RequiredLicense))
-                .Select(v => VehicleMapper.ToDto(v)) .ToList();
+                .Select(v => VehicleMapper.ToDto(v))
+                .ToList();
         }
     }
 }
