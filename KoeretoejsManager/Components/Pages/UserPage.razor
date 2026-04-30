@@ -17,13 +17,57 @@
     }
 </select>
 
+<button class="btn btn-primary mt-2" @onclick="LoadUserData">
+    Load
+</button>
+
+@if (userDataLoaded)
+{
+    <div class="mt-3">
+        <h3>@userProfile.UserName's Profile</h3>
+        <p><strong>Email:</strong> @userProfile.Email</p>
+        <p><strong>Full Name:</strong> @userProfile.FirstName @userProfile.LastName</p>
+        <p><strong>Kørekort:</strong> @foreach(var item in userProfile.Licenses)
+            {
+                <span>@item.Type (@item.ExpiryDate.ToShortDateString())</span>
+            }
+        </p>
+        <br />
+        <p>Booking: @foreach(var booking in userProfile.Bookings)
+            {
+                <span>@booking.Vehicle.LicensePlate (@booking.Start.ToShortDateString() - @booking.End.ToShortDateString()) Husk Kørekort: @booking.Vehicle.RequiredLicense.ToString() </span>
+            }
+        </p>
+
+    </div>
+}
+
 @code {
     private List<UserIdDTO> users = new();
     private int? selectedUserId;
+    private UserProfileDTO userProfile = new UserProfileDTO();
+    private bool userDataLoaded = false;
 
     protected override async Task OnInitializedAsync()
     {
         users = await UserApiService.GetAllUserIds();
+    }
+
+    private async Task LoadUserData()
+    {
+        if (selectedUserId == null)
+        {
+            return;
+        }
+
+        var userData = await UserApiService.GetUserById(selectedUserId.Value);
+
+        if(userData != null && userData.UserId == selectedUserId.Value)
+        {
+            userProfile = userData;
+            userDataLoaded = true;
+        }
+
     }
 
 }

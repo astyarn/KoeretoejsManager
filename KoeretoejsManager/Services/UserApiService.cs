@@ -22,5 +22,10 @@ namespace KoeretoejsManager.Services
         {
             return await _http.GetFromJsonAsync<List<UserIdDTO>>("api/user/all-user-ids");
         }
+
+        public async Task<UserProfileDTO> GetUserById(int userId)
+        {
+            return await _http.GetFromJsonAsync<UserProfileDTO>($"api/user/{userId}");
+        }
     }
 }

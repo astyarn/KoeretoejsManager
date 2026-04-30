@@ -24,6 +24,18 @@ namespace KoeretoejsManager.Api.Controllers
             var userIds = _userService.GetAllUserIds();
             return Ok(userIds);
         }
+
+        [HttpGet("{id}")]
+        [AllowAnonymous]
+        public ActionResult<UserProfileDTO> GetUserById(int id)
+        {
+            var user = _userService.GetUserById(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
+        }
     }
 }
 

@@ -5,5 +5,6 @@ namespace KoeretoejsManager.Interfaces
     public interface IUserApiService
     {
         Task<List<UserIdDTO>> GetAllUserIds();    //Demo
+        Task<UserProfileDTO> GetUserById(int userId);
     }
 }
