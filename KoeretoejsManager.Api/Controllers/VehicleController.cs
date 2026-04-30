@@ -1,4 +1,5 @@
 ﻿using KoeretoejsManager.Api.Interfaces;
+using KoeretoejsManager.Api.Models;
 using KoeretoejsManager.Api.Models.HelperModels;
 using KoeretoejsManager.Shared.DTOs;
 using KoeretoejsManager.Shared.Enums;
@@ -39,6 +40,45 @@ namespace KoeretoejsManager.Api.Controllers
         {
             var vehicles = _vehicleService.GetAllVehicles();
             return Ok(vehicles);
+        }
+
+        [HttpPost("create")]
+        [AllowAnonymous]
+        public ActionResult CreateVehicle([FromBody] CreateVehicleDTO dto)
+        {
+            if (dto == null)
+            {
+                return BadRequest("Invalid vehicle data.");
+            }
+
+            var createdVehicle = _vehicleService.CreateVehicle(dto);
+
+            return CreatedAtAction(nameof(GetVehicleById), new { id = createdVehicle.VehicleId }, createdVehicle);
+        }
+
+        [HttpGet("{id}")]
+        [AllowAnonymous]
+        public ActionResult<VehicleDTO> GetVehicleById(int id)
+        {
+            var vehicle = _vehicleService.GetVehicleById(id);
+
+            if (vehicle == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(vehicle);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteVehicle(int id)
+        {
+            var deleted = _vehicleService.DeleteVehicle(id);
+
+            if (!deleted)
+                return NotFound();
+
+            return NoContent();
         }
     }
 }

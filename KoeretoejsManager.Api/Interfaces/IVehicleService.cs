@@ -7,7 +7,9 @@ namespace KoeretoejsManager.Api.Interfaces
     public interface IVehicleService
     {
         List<VehicleDTO> GetAllVehicles();
+        VehicleDTO GetVehicleById(int vehicleId);
         List<VehicleSearchByDriverslicenseDTO> GetAllVehiclesByDriversLicense(List<DrivingLicenseType> drivingLicenseTypes);
-        bool CreateVehicle(Vehicle vehicle);
+        VehicleDTO CreateVehicle(CreateVehicleDTO vehicle);
+        bool DeleteVehicle(int id);
     }
 }

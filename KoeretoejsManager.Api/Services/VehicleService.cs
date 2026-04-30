@@ -17,9 +17,19 @@ namespace KoeretoejsManager.Api.Services
             _db = db;
         }
 
-        public bool CreateVehicle(Vehicle vehicle)
+        public VehicleDTO CreateVehicle(CreateVehicleDTO dto)
         {
-            throw new NotImplementedException();
+            var vehicle = new Vehicle
+            {
+                LicensePlate = dto.LicensePlate,
+                RequiredLicense = dto.RequiredLicense,
+                Status = dto.Status,
+                NumberOfSeats = dto.NumberOfSeats
+            };
+
+            _db.Vehicles.Add(vehicle);
+            _db.SaveChanges();
+            return VehicleMapper.ToVehicleDto(vehicle);
         }
 
         public List<VehicleDTO> GetAllVehicles()
@@ -35,6 +45,28 @@ namespace KoeretoejsManager.Api.Services
                 .Where(v => drivingLicenseTypes.Contains(v.RequiredLicense))
                 .Select(v => VehicleMapper.ToVehicleSearchByDriverslicenseDto(v))
                 .ToList();
+        }
+
+        public VehicleDTO GetVehicleById(int vehicleId)
+        {
+            //TODO test what happens if null is tried to be mapped to a DTO, and if it throws an exception or just returns null.
+            return _db.Vehicles
+                .Where(v => v.VehicleId == vehicleId)
+                .Select(v => VehicleMapper.ToVehicleDto(v))
+                .FirstOrDefault();
+        }
+
+        public bool DeleteVehicle(int vehicleId)
+        {
+            var vehicle = _db.Vehicles.FirstOrDefault(v => v.VehicleId == vehicleId);   //Check if the vehicle exists before trying to delete it
+
+            if (vehicle == null)
+                return false;
+
+            _db.Vehicles.Remove(vehicle);
+            _db.SaveChanges();
+
+            return true;
         }
     }
 }
