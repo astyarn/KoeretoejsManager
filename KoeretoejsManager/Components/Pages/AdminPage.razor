@@ -9,6 +9,35 @@
 
 <h1>Admin Dashboard</h1>
 
+<button class="btn btn-primary mt-2" @onclick="LoadVehicles">
+    Load Køretøjer
+</button>
+
+
+<div class="mt-3">
+    <h4>Køretøjer</h4>
+    <ul>
+        @if (isVehicleListLoaded)
+        {
+            @foreach (var vehicle in vehicles)
+            {
+                <li>@vehicle.LicensePlate - @vehicle.Status - @vehicle.NumberOfSeats - @vehicle.RequiredLicense
+                    <button class="btn btn-danger btn-sm ms-2"
+                            @onclick="() => DeleteVehicle(vehicle.Id)">
+                        Slet Køretøj
+                    </button>
+                </li>
+            }
+        }
+        else
+        {
+            <li>---</li>
+        }
+    </ul>
+</div>
+
+
+<br
 <EditForm Model="@model" OnValidSubmit="HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
@@ -44,7 +73,7 @@
     </div>
 
     <button class="btn btn-primary" type="submit">
-        Create
+        Opret Køretøj
     </button>
 
     @if (showSuccessMessage)
@@ -56,20 +85,25 @@
     }
 </EditForm>
 
-@code {
+    @code {
     private CreateVehicleDTO model = new();
     private bool showSuccessMessage = false;
     private VehicleDTO? successMessage = new();
 
+    private List<VehicleDTO> vehicles = new();
+    private bool isVehicleListLoaded = false;
+
+
+
     private async Task HandleValidSubmit()
     {
         var createdVehicle = await VehicleApiService.CreateVehicle(model);
-        
+
         if (createdVehicle != null)
         {
             successMessage = createdVehicle;
             showSuccessMessage = true;
-            
+
         }
         else
         {
@@ -77,4 +111,18 @@
         }
     }
 
+    private async Task LoadVehicles()
+    {
+        vehicles = await VehicleApiService.GetAllVehicles();
+        if (vehicles.Any())
+        {
+            isVehicleListLoaded = true;
+        }
+    }
+
+    private async Task DeleteVehicle(int vehicleId)
+    {
+        await VehicleApiService.DeleteVehicle(vehicleId);
+        await LoadVehicles();
+    }
 }

@@ -5,9 +5,9 @@ namespace KoeretoejsManager.Interfaces
 {
     public interface IVehicleApiService
     {
-        Task<List<VehicleSearchByDriverslicenseDTO>> GetAllVehicles();
+        Task<List<VehicleDTO>> GetAllVehicles();
         Task<List<VehicleSearchByDriverslicenseDTO>> GetVehiclesByDrivingLicense(List<DrivingLicenseType> drivingLicenseTypes);
         Task<VehicleDTO?> CreateVehicle(CreateVehicleDTO dto);
-
+        Task DeleteVehicle(int vehicleId);
     }
 }

@@ -36,7 +36,7 @@ namespace KoeretoejsManager.Api.Controllers
 
         [HttpGet("all-vehicles")]
         [AllowAnonymous]
-        public ActionResult<List<VehicleSearchByDriverslicenseDTO>> GetAllVehicles()
+        public ActionResult<List<VehicleDTO>> GetAllVehicles()
         {
             var vehicles = _vehicleService.GetAllVehicles();
             return Ok(vehicles);

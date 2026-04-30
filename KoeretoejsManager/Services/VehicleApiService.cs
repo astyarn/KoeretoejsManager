@@ -21,9 +21,9 @@ namespace KoeretoejsManager.Services
             _http.DefaultRequestHeaders.Add("x-api-key", _apiKey);
         }
 
-        public async Task<List<VehicleSearchByDriverslicenseDTO>> GetAllVehicles()
+        public async Task<List<VehicleDTO>> GetAllVehicles()
         {
-            return await _http.GetFromJsonAsync<List<VehicleSearchByDriverslicenseDTO>>("api/vehicle/all-vehicles");
+            return await _http.GetFromJsonAsync<List<VehicleDTO>>("api/vehicle/all-vehicles");
 
         }
 
@@ -50,6 +50,11 @@ namespace KoeretoejsManager.Services
             }
 
             return await response.Content.ReadFromJsonAsync<VehicleDTO>();
+        }
+
+        public Task DeleteVehicle(int vehicleId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
