@@ -25,15 +25,15 @@ namespace KoeretoejsManager.Api.Services
         public List<VehicleDTO> GetAllVehicles()
         {
             return _db.Vehicles
-                .Select(v => VehicleMapper.ToDto(v))
+                .Select(v => VehicleMapper.ToVehicleDto(v))
                 .ToList();
         }
 
-        public List<VehicleDTO> GetAllVehiclesByDriversLicense(List<DrivingLicenseType> drivingLicenseTypes)
+        public List<VehicleSearchByDriverslicenseDTO> GetAllVehiclesByDriversLicense(List<DrivingLicenseType> drivingLicenseTypes)
         {
             return _db.Vehicles
                 .Where(v => drivingLicenseTypes.Contains(v.RequiredLicense))
-                .Select(v => VehicleMapper.ToDto(v))
+                .Select(v => VehicleMapper.ToVehicleSearchByDriverslicenseDto(v))
                 .ToList();
         }
     }

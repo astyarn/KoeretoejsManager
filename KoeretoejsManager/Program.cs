@@ -12,8 +12,17 @@ namespace KoeretoejsManager
 
             // Add services to the container.
 
-            builder.Services.AddScoped<IUserAuthApiService, UserAuthApiService>();
+            builder.Services.AddHttpClient<IUserAuthApiService, UserAuthApiService>();
             builder.Services.AddScoped<IUserTokenStore, UserTokenStore>();
+            builder.Services.AddHttpClient<IVehicleApiService, VehicleApiService>(client =>
+            {
+                var baseUrl = builder.Configuration["Api:BaseUrl"];
+
+                if (string.IsNullOrWhiteSpace(baseUrl))
+                    throw new InvalidOperationException("Api:BaseUrl is not configured.");
+
+                client.BaseAddress = new Uri(baseUrl);
+            });
 
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();

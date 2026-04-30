@@ -22,6 +22,7 @@ namespace KoeretoejsManager.Api
             builder.Services.AddScoped<IVehicleService, VehicleService>();
             builder.Services.AddScoped<IJwtService, JwtService>();
 
+
             builder.Services.AddAuthentication("Bearer")
                 .AddJwtBearer("Bearer", options =>
                 {

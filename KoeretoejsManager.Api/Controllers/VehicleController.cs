@@ -21,7 +21,7 @@ namespace KoeretoejsManager.Api.Controllers
 
         [HttpPost("search-by-drivers-license")]
         [AllowAnonymous]
-        public ActionResult<List<VehicleDTO>> SearchVehiclesByDriversLicense([FromBody] VehicleSearchDriversLicenseRequest request)
+        public ActionResult<List<VehicleSearchByDriverslicenseDTO>> SearchVehiclesByDriversLicense([FromBody] VehicleSearchDriversLicenseRequest request)
         {
             if (request == null || request.LicenseTypes == null || !request.LicenseTypes.Any())
             {
@@ -35,7 +35,7 @@ namespace KoeretoejsManager.Api.Controllers
 
         [HttpGet("all-vehicles")]
         [AllowAnonymous]
-        public ActionResult<List<VehicleDTO>> GetAllVehicles()
+        public ActionResult<List<VehicleSearchByDriverslicenseDTO>> GetAllVehicles()
         {
             var vehicles = _vehicleService.GetAllVehicles();
             return Ok(vehicles);

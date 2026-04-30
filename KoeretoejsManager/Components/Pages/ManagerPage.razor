@@ -1,0 +1,44 @@
+﻿@page "/manager-dashboard"
+
+@using KoeretoejsManager.Interfaces
+@using KoeretoejsManager.Shared.DTOs
+@using KoeretoejsManager.Shared.Enums
+
+@inject IVehicleApiService VehicleApiService
+
+<PageTitle>Manager Dashboard</PageTitle>
+
+<h1>Manager Dashboard</h1>
+
+<select class="form-select" @bind="selectedDrivingLicenseType">
+    @foreach (var type in Enum.GetValues<DrivingLicenseType>())
+    {
+        <option value="@type">@type</option>
+    }
+</select>
+
+<button class="btn btn-primary mt-2" @onclick="LoadData">
+    Load
+</button>
+
+@if (results?.Any() == true)
+{
+    <ul class="mt-3">
+        @foreach (var item in results)
+        {
+            <li>@item.LicensePlate - @item.Status - @item.NumberOfSeats</li>
+        }
+    </ul>
+}
+
+@code {
+    private DrivingLicenseType selectedDrivingLicenseType { get; set; } = DrivingLicenseType.Unknown;
+
+    private List<VehicleSearchByDriverslicenseDTO> results { get; set; } = new List<VehicleSearchByDriverslicenseDTO>();
+
+    private async Task LoadData()
+    {
+        results = await VehicleApiService.GetVehiclesByDrivingLicense(new List<DrivingLicenseType> { selectedDrivingLicenseType }); //Api call expects a list but for demo we only send one value for now
+    }
+
+}
