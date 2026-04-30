@@ -24,8 +24,24 @@ namespace KoeretoejsManager
                 client.BaseAddress = new Uri(baseUrl);
             });
 
+            builder.Services.AddHttpClient<IUserApiService, UserApiService>(client =>
+            {
+                var baseUrl = builder.Configuration["Api:BaseUrl"];
+
+                if (string.IsNullOrWhiteSpace(baseUrl))
+                    throw new InvalidOperationException("Api:BaseUrl is not configured.");
+
+                client.BaseAddress = new Uri(baseUrl);
+            });
+
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
+
+            builder.Services.AddServerSideBlazor()  //TODO : REMOVE BEFORE PUBLISHING
+                .AddCircuitOptions(options =>
+                {
+                    options.DetailedErrors = true;
+                });
 
             var app = builder.Build();
 
