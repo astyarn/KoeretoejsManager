@@ -46,18 +46,35 @@
     <button class="btn btn-primary" type="submit">
         Create
     </button>
+
+    @if (showSuccessMessage)
+    {   
+        <p class="success-msg">Vehicle added successfully</p>
+        <div class="alert alert-success mt-3">
+            Tilføjet @successMessage.LicensePlate - @successMessage.Status - @successMessage.NumberOfSeats - @successMessage.RequiredLicense
+        </div>
+    }
 </EditForm>
 
 @code {
     private CreateVehicleDTO model = new();
+    private bool showSuccessMessage = false;
+    private VehicleDTO? successMessage = new();
 
     private async Task HandleValidSubmit()
     {
-        // later: call your service here
-        Console.WriteLine($"Creating vehicle: {model.LicensePlate}");
-
-        // Example:
-        // await VehicleService.CreateAsync(model);
+        var createdVehicle = await VehicleApiService.CreateVehicle(model);
+        
+        if (createdVehicle != null)
+        {
+            successMessage = createdVehicle;
+            showSuccessMessage = true;
+            
+        }
+        else
+        {
+            showSuccessMessage = false;
+        }
     }
 
 }

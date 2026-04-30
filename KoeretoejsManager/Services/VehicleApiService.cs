@@ -38,5 +38,18 @@ namespace KoeretoejsManager.Services
 
             return await response.Content.ReadFromJsonAsync<List<VehicleSearchByDriverslicenseDTO>>();
         }
+
+        public async Task<VehicleDTO?> CreateVehicle(CreateVehicleDTO dto)
+        {
+            var response = await _http.PostAsJsonAsync("api/vehicle/create", dto);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                throw new Exception($"Vehicle creation failed: {error}");
+            }
+
+            return await response.Content.ReadFromJsonAsync<VehicleDTO>();
+        }
     }
 }
