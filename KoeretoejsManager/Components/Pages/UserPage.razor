@@ -1,0 +1,29 @@
+﻿@page "/user-dashboard"
+
+@using KoeretoejsManager.Interfaces
+@using KoeretoejsManager.Shared.DTOs
+@using KoeretoejsManager.Shared.Enums
+
+@inject IUserApiService UserApiService
+
+<PageTitle>User Dashboard</PageTitle>
+
+<h1>User Dashboard</h1>
+
+<select class="form-select" @bind="selectedUserId">
+    @foreach (var user in users)
+    {
+        <option value="@user.UserId">@user.UserName</option>
+    }
+</select>
+
+@code {
+    private List<UserIdDTO> users = new();
+    private int? selectedUserId;
+
+    protected override async Task OnInitializedAsync()
+    {
+        users = await UserApiService.GetAllUserIds();
+    }
+
+}
