@@ -26,3 +26,7 @@ GET {{KoeretoejsManager.Api_HostAddress}}/api/vehicle/all-vehicles
 X-Api-Key: IMIDLERTIDIG-API-KEY-1337
 
 ###
+
+GET {{KoeretoejsManager.Api_HostAddress}}/api/user/all-user-ids
+X-Api-Key: IMIDLERTIDIG-API-KEY-1337
+###
