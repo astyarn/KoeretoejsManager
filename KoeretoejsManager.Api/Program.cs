@@ -73,7 +73,7 @@ namespace KoeretoejsManager.Api
 
             var app = builder.Build();
 
-            app.UseMiddleware<ApiKeyMiddleware>(); //<-- to be placed before Authorization middleware
+            //app.UseMiddleware<ApiKeyMiddleware>(); //<-- to be placed before Authorization middleware
 
             // Configure the HTTP request pipeline.
             //if (app.Environment.IsDevelopment())

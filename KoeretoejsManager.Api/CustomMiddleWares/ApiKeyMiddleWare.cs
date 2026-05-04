@@ -24,7 +24,14 @@
 
                 var validKey = _config["ApiKey"];
 
-                if (!validKey.Equals(extractedKey))
+                if (string.IsNullOrEmpty(validKey))
+                {
+                    context.Response.StatusCode = 500;
+                    await context.Response.WriteAsync("API Key not configured on server");
+                    return;
+                }
+
+                if (!string.Equals(validKey, extractedKey.ToString(), StringComparison.Ordinal))
                 {
                     context.Response.StatusCode = 401;
                     await context.Response.WriteAsync("Invalid API Key");
