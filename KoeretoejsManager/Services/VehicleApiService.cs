@@ -52,9 +52,10 @@ namespace KoeretoejsManager.Services
             return await response.Content.ReadFromJsonAsync<VehicleDTO>();
         }
 
-        public Task DeleteVehicle(int vehicleId)
+        public async Task<bool> DeleteVehicle(int vehicleId)
         {
-            throw new NotImplementedException();
+            var response = await _http.DeleteAsync($"api/vehicle/{vehicleId}"); 
+            return response.IsSuccessStatusCode;    //Return true if deletion was successfull, 204 NoContent
         }
     }
 }

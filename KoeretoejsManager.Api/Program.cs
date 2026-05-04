@@ -5,6 +5,7 @@ using KoeretoejsManager.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Scalar.AspNetCore;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -67,6 +68,7 @@ namespace KoeretoejsManager.Api
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
+                app.MapScalarApiReference();
             }
 
             app.UseHttpsRedirection();

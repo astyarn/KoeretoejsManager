@@ -122,7 +122,11 @@
 
     private async Task DeleteVehicle(int vehicleId)
     {
-        await VehicleApiService.DeleteVehicle(vehicleId);
-        await LoadVehicles();
+        var result = await VehicleApiService.DeleteVehicle(vehicleId);
+        if (result)
+        {
+            // Optionally, you can show a success message here
+            await LoadVehicles();
+        }
     }
 }

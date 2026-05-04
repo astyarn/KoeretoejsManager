@@ -8,6 +8,6 @@ namespace KoeretoejsManager.Interfaces
         Task<List<VehicleDTO>> GetAllVehicles();
         Task<List<VehicleSearchByDriverslicenseDTO>> GetVehiclesByDrivingLicense(List<DrivingLicenseType> drivingLicenseTypes);
         Task<VehicleDTO?> CreateVehicle(CreateVehicleDTO dto);
-        Task DeleteVehicle(int vehicleId);
+        Task<bool> DeleteVehicle(int vehicleId);
     }
 }
