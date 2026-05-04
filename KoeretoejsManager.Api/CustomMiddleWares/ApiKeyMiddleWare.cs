@@ -15,7 +15,7 @@
         {
             if (context.Request.Path.StartsWithSegments("/api"))
             {
-                if (!context.Request.Headers.TryGetValue("X-Api-Key", out var extractedKey))
+                if (!context.Request.Headers.TryGetValue("x-api-key", out var extractedKey))
                 {
                     context.Response.StatusCode = 401;
                     await context.Response.WriteAsync("API Key missing");

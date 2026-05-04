@@ -19,6 +19,17 @@ namespace KoeretoejsManager.Api
 
             // Add services to the container.
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowFrontend", policy =>
+                {
+                    policy
+                        .AllowAnyOrigin()   // or restrict to your frontend URL
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
+
             builder.Services.AddScoped<IUserAuthService, UserAuthService>();
             builder.Services.AddScoped<IVehicleService, VehicleService>();
             builder.Services.AddScoped<IUserService, UserService>();
@@ -73,6 +84,7 @@ namespace KoeretoejsManager.Api
 
             app.MapOpenApi();
             app.MapScalarApiReference();
+            app.UseCors("AllowFrontend");
 
             app.UseHttpsRedirection();
 
