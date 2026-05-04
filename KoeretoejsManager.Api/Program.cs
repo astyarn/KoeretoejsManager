@@ -65,11 +65,14 @@ namespace KoeretoejsManager.Api
             app.UseMiddleware<ApiKeyMiddleware>(); //<-- to be placed before Authorization middleware
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.MapOpenApi();
-                app.MapScalarApiReference();
-            }
+            //if (app.Environment.IsDevelopment())
+            //{
+            //    app.MapOpenApi();
+            //    app.MapScalarApiReference();
+            //}
+
+            app.MapOpenApi();
+            app.MapScalarApiReference();
 
             app.UseHttpsRedirection();
 
