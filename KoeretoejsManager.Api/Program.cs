@@ -86,7 +86,7 @@ namespace KoeretoejsManager.Api
             app.MapScalarApiReference();
             app.UseCors("AllowFrontend");
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection(); //commented out because of weird self redirects assumed to be http calls and unable to force UI to stay in https
 
             app.UseAuthorization();
 

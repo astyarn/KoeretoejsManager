@@ -37,7 +37,11 @@ namespace KoeretoejsManager
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
 
-            builder.Services.AddServerSideBlazor();
+            builder.Services.AddServerSideBlazor()
+                    .AddCircuitOptions(options =>
+                    {
+                        options.DetailedErrors = true; //TODO : REMOVE FOR ACTUAL DEPLOYMENT
+                    });
                 
 
             var app = builder.Build();
