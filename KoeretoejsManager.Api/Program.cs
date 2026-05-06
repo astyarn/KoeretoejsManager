@@ -58,11 +58,12 @@ namespace KoeretoejsManager.Api
             builder.Services.AddDbContext<KoeretoejsManagerDbContext>(options =>
                 options.UseSqlite("Data Source=koeretoejsmanager.db"));
 
-            builder.Services.AddControllers(options =>
-            {
-                options.Filters.Add(new RequireHttpsAttribute());       //Force https for all controllers
+            //builder.Services.AddControllers(options =>
+            //{
+            //    options.Filters.Add(new RequireHttpsAttribute());       //Force https for all controllers
 
-            })
+            //})
+            builder.Services.AddControllers()
             .AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());    //Adds option to serialize enums as strings in json
